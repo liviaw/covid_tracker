@@ -11,7 +11,7 @@ export const fetchData = async () => {
         //const response = await axios.get(url);
         
         const {data} = await axios.get(url);
-
+// await - waits until the await code finishes, then go to the next
         const modifiedData = {
             confirmed: data.confirmed,
             recovered: data.recovered,
@@ -29,3 +29,18 @@ export const fetchData = async () => {
 }
 // export { default as fetchData } from '.';
 // export default fetchData;
+
+
+ export const fetchDailyData = async () => {
+     try {
+         // data will be an array
+        const { data } = await axios.get(`${url}/daily`);
+
+        // return data;
+
+     } catch (error) {
+
+     }
+ }
+
+//  export {fetchData, fetchDailyData};
