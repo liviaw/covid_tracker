@@ -37,6 +37,14 @@ export const fetchData = async () => {
         const { data } = await axios.get(`${url}/daily`);
 
         // return data;
+        // data is an array of objects (object is a dictionary btw)
+
+        const modifiedData = data.map (( dailyData ) => ({
+            confirmed: dailyData.confirmed.total,
+            deaths: dailyData.deaths.total,
+            date: dailyData.reportDate,
+        }));
+        return modifiedData;
 
      } catch (error) {
 
@@ -44,3 +52,14 @@ export const fetchData = async () => {
  }
 
 //  export {fetchData, fetchDailyData};
+
+export const countries = async () => {
+    try {
+        const {data: { countries } } = await axios.get(`${url}/countries`);
+        // map returns another array
+        return countries.map((country) => country.name);
+    } catch (error) {
+        console.log(error);
+    }
+
+}

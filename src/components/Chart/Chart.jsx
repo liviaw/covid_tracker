@@ -22,9 +22,6 @@ const Chart = () => {
             setDailyData(await fetchDailyData());
             // this will populates dailyData
         }
-        console.log("==hi==");
-        console.log(dailyData);
-        console.log("==hi==");
         fetchAPI();
     });
 
@@ -32,17 +29,17 @@ const Chart = () => {
     
     // this is a component we import from line.js
     const lineChart = (
-        dailyData[0] ? (
+        dailyData.length !== 0 ? (
             <Line data = {{
-                labels: dailyData( ({ date }) => date ),
+                labels: dailyData.map( ({ date }) => date ),
                 // array of objects
                 datasets: [{
-                    data: dailyData(({ confirmed }) => confirmed),
+                    data: dailyData.map(({ confirmed }) => confirmed),
                     label: 'Infected',
                     borderColor: '#3333ff',
                     fill: true,
                 }, {
-                    data: dailyData(({deaths}) => deaths),
+                    data: dailyData.map(({deaths}) => deaths),
                     label: 'Deaths',
                     borderColor: 'red',
                     backgroundColor: 'rgba(255, 0, 0, 0.5)',
