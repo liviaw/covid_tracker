@@ -6,11 +6,17 @@ const url = 'https://covid19.mathdro.id/api';
 
 // async function deals with promises
 // same way with .then
-export const fetchData = async () => {
+export const fetchData = async (country) => {
+    let changeableUrl = url;
+    if (country) {
+        changeableUrl = `${url}/countries/${country}`;
+    }
+
+
     try {
         //const response = await axios.get(url);
         
-        const {data} = await axios.get(url);
+        const {data} = await axios.get(changeableUrl);
 // await - waits until the await code finishes, then go to the next
         const modifiedData = {
             confirmed: data.confirmed,
@@ -23,7 +29,7 @@ export const fetchData = async () => {
     }
 
     catch (error) {
-
+        console.log(error);
 
     }
 }
@@ -53,7 +59,7 @@ export const fetchData = async () => {
 
 //  export {fetchData, fetchDailyData};
 
-export const countries = async () => {
+export const fetchCountries = async () => {
     try {
         const {data: { countries } } = await axios.get(`${url}/countries`);
         // map returns another array

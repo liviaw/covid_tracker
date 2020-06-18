@@ -3,3 +3,10 @@
     justify-content: center;
     width: 85%;
 }
+
+@media (max-width: 770px) {
+    /* looks like we need to put in important for all material ui component */
+    .container {
+        width: 90%;
+    }
+}

@@ -4,10 +4,13 @@ import { Line, Bar } from 'react-chartjs-2';
 
 import styles from './Chart.module.css';
 
-const Chart = () => {
+const Chart = ({ data: { confirmed, deaths, recovered }, country }) => {
     // dailyData is the state, setting initial value as empty array []
     // setDailyData is a setting method, its setting daily data as empty object
     const [ dailyData, setDailyData ] = useState( [] );
+
+    // dailyData will only be for the global
+    // country that is parsed in will be for individual countries, where you put the bar chart
 
     // same as doing this:
     // state = {
@@ -23,7 +26,8 @@ const Chart = () => {
             // this will populates dailyData
         }
         fetchAPI();
-    });
+        // putting [] as return will make it only run fetchAPI once
+    }, []);
 
     // we need two different chart, bar chart and line chart
     
@@ -53,12 +57,31 @@ const Chart = () => {
 
 
 
-    // const barChart = (
-
-    // );
+    const barChart = (
+        confirmed ? (
+            // two {} bcs one is to make it dynamic and the other one is to opening the object
+            <Bar data= {{
+                labels: ['Infected', 'Recovered', 'Deaths'],
+                datasets: [{
+                    label: 'People',
+                    backgroundColor: [
+                        'rgba(0, 0, 255, 0.5)',
+                        'rgba(0, 255, 0, 0.5)',
+                        'rgba(255, 0, 0, 0.5)',
+                    ],
+                    data: [confirmed.value, recovered.value, deaths.value],
+                }]
+            }}
+            options={{
+                legend: { display: false},
+                title: { display: true, text:`Current state in ${country}`},
+            }}
+            />
+        ) : null
+    );
     return (
         <div className={styles.container}> 
-            {lineChart};
+            {country ? barChart : lineChart}
         </div>
     )
     

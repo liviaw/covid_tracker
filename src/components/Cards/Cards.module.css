@@ -20,3 +20,11 @@
 .deaths {
     border-bottom: 10px solid rgba(255, 0, 0, 0.5);
 }
+
+@media (max-width: 770px) {
+    /* looks like we need to put in important for all material ui component */
+    .card {
+        margin: 2% 0 !important;
+        width: 180px !important;
+    }
+}
